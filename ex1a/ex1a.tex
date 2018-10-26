@@ -11,7 +11,7 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[english, greek]{babel}
-\usepackage[LGR, T1]{fontenc}
+\usepackage[LGR, T1]{fontenc} 
 
 \usepackage{amsmath}
 
@@ -60,13 +60,24 @@
   \subsection{β}
 
     \begin{enumerate}
-      \item \( T(n) = 2T(n/3) + n\log{n} : n^{\log_{3}2 \approx 0.63 }, nlogn = f(n) = \Omega(n^{\log_{3}2}) \), ικανοποιεί την {\latintext regularity condition}, άρα \textit{Περίπτωση 3} και \( T(n)=\Theta(n\log{n}) \)
-      \item \( T(n) = 3T(n/3) + n\log{n} : n^{\log_{3}3} + nlogn, nlogn = f(n) = \Omega(n) \), δεν ικανοποιεί όμως την {\latintext regularity condition}, αφού διαφέρουν κατά λογαριθμικό όρο, όχι πολυωνυμικό. Με δέντρο αναδρομής εύκολα φαίνεται ότι \( \Theta(n\log^{2}{n}) \)
-      \item \( T(n) = 4T(n/3) + n\log{n} : n^{\log_{3}{4} \approx 1.26}, n\log{n} = f(n) = O(n^{\log_{3}4}) \), άρα \textit{Περίπτωση 1} και \( Τ(n) = \Theta(n^{\log_{3}{4}}) \)
-      \item \( T(n) = T(n/2) + T(n/3) + n : \) βλέπουμε ότι \( \frac{n}{2} + \frac{n}{3} < n \), οπότε λογικά \( T(n) = \Theta(n) \) (απόδειξη με δέντρο αναδρομής)
-      \item \( Τ(n) = T(n/2) + T(n/3) + T(n/6) + n : \)
+      \item \( T(n) = 2T(n/3) + n\log{n} : n^{\log_{3}2 \approx 0.63 }, 
+      nlogn = f(n) = \Omega(n^{\log_{3}2}) \), ικανοποιεί την {\latintext 
+      regularity condition}, άρα \textit{Περίπτωση 3} και \( T(n)=\Theta(n\log{n}) \)
+      \item \( T(n) = 3T(n/3) + n\log{n} : n^{\log_{3}3} + nlogn, nlogn = 
+      f(n) = \Omega(n) \), δεν ικανοποιεί όμως την {\latintext regularity 
+      condition}, αφού διαφέρουν κατά λογαριθμικό όρο, όχι πολυωνυμικό. Με δέντρο αναδρομής εύκολα φαίνεται ότι \( \Theta(n\log^{2}{n}) \)
+      \item \( T(n) = 4T(n/3) + n\log{n} : n^{\log_{3}{4} \approx 1.26}, n\log{n} =
+      f(n) = O(n^{\log_{3}4}) \), άρα \textit{Περίπτωση 1} και \( Τ(n) = \Theta(n^{\log_{3}{4}}) \)
+      \item \( T(n) = T(n/2) + T(n/3) + n : \) βλέπουμε ότι \( \frac{n}{2} + 
+      \frac{n}{3} < n \), οπότε λογικά \( T(n) = \Theta(n) \) (απόδειξη με δέντρο αναδρομής)
+      \item \( Τ(n) = T(n/2) + T(n/3) + T(n/6) + n : \) εδώ ισχύει \( \frac{n}{2} 
+      + \frac{n}{3} + \frac{n}{6} = n \), οπότε κάνοντας δέντρο αναδρομής βλέπουμε
+      πώς \( \Theta(n^2) \) 
       \item \( T(n) = T(n^{5/6}) + \Theta(\log{n}) : \)
-      \item \( T(n) = T(n/4) + \sqrt{n} : \) θέτουμε \(n=k^2\) και η αναδρομική σχέση γίνεται \( U(k) = U(k/2) + \Theta(k) \) με \( U(k)=T(k^2) \). Από {\latintext MT}, \( U(k)=\Theta(k) \Rightarrow T(k^2)=\Theta(k) \Rightarrow T(n)=\Theta(\sqrt{n}) \)
+      \item \( T(n) = T(n/4) + \sqrt{n} : \) θέτουμε \(n=k^2\) και η αναδρομική 
+      σχέση γίνεται \( U(k) = U(k/2) + \Theta(k) \) με \( U(k)=T(k^2) \). Από 
+      {\latintext MT}, \( U(k)=\Theta(k) \Rightarrow T(k^2)=\Theta(k) \Rightarrow 
+      T(n)=\Theta(\sqrt{n}) \)
     \end{enumerate}
 
   \section{Άσκηση 2}
@@ -157,7 +168,7 @@
   
   \subsection{β}
     Το πρόβλημα λύνεται με τον αλγόριθμο του \textit{α} ερωτήματος, αρκεί να
-    βρούμε έναν τρόπο να υπολοιήσουμε την αντίστοιχη \( F_S \). Για να πετύχουμε
+    βρούμε έναν τρόπο να υπολογήσουμε την αντίστοιχη \( F_S \). Για να πετύχουμε
     αποδοτική υλοποίηση, αρχικά ταξινομούμε τα στοιχεία του συνόλου. Η διαδικασία
     αυτή παίρνει χρόνο \( \Theta(n\log{n}) \). Ύστερα, για να βρούμε το πλήθος
     των διαφορών που δεν υπερβαίνουν το \( \ell \), δηλαδή την \( F_S(\ell) \),
