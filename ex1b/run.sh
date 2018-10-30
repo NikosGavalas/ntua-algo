@@ -13,14 +13,18 @@ GREEN='\033[1;32m'
 YELLOW='\033[1;33m'
 RST='\033[0m'
 
-# compile
+echo "compiling..."
 g++ -g -o particles particles.cpp
+if [[ $? != 0 ]]; then
+    echo "compilation failed"
+    exit $?
+fi
 
-# run tests
+echo "running tests..."
 for i in $(seq 1 ${TEST_NUM})
 do
-    result=$(diff ${PARTICLES_TESTCASES_DIR}/output${i}.txt <(cat ${PARTICLES_TESTCASES_DIR}/input${i}.txt | ./particles))
-    if [[ result != 0 ]]; then
+    diff ${PARTICLES_TESTCASES_DIR}/output${i}.txt <(cat ${PARTICLES_TESTCASES_DIR}/input${i}.txt | ./particles) > /dev/null
+    if [[ $? != 0 ]]; then
         echo -e "Test ${i} ${RED}failed${RST}"
         if [[ $VERBOSE == "true" ]]; then
             echo -e "${YELLOW}Output:${RST}"
@@ -31,8 +35,8 @@ do
         echo "start debugging?[y/n]"
         read answer
         if [[ $answer == "y" || $answer == "Y" ]]; then
-           gdb particles
-           exit 1
+            gdb -ex "run < ${PARTICLES_TESTCASES_DIR}/input${i}.txt" particles
+            exit 1
         fi
     else
         echo -e "Test ${i} ${GREEN}passed${RST}"
