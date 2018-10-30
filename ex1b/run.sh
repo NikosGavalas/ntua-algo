@@ -14,7 +14,7 @@ YELLOW='\033[1;33m'
 RST='\033[0m'
 
 echo "compiling..."
-g++ -g -o particles particles.cpp
+g++ -Wall -g -o particles particles.cpp
 if [[ $? != 0 ]]; then
     echo "compilation failed"
     exit $?
@@ -35,7 +35,7 @@ do
         echo "start debugging?[y/n]"
         read answer
         if [[ $answer == "y" || $answer == "Y" ]]; then
-            gdb -ex "run < ${PARTICLES_TESTCASES_DIR}/input${i}.txt" particles
+            gdb -ex "b main" -ex "run < ${PARTICLES_TESTCASES_DIR}/input${i}.txt" particles
             exit 1
         fi
     else
