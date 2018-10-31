@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PARTICLES_TESTCASES_DIR="particles_testcases"
-TEST_NUM="1"
+TEST_NUM="10"
 VERBOSE="true"
 
 if [ ! -z "$1" ]; then
