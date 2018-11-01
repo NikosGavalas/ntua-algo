@@ -1,45 +1,32 @@
 #include <iostream>
 #include <vector>
+#include <limits>
 
 using namespace std;
 
 int N;
 long long buildings[1000000];
 
-long long min_cost(int left, int right)
+long long calculate_cost(int index)
 {
-    if (left == right)
-        return left;
-
-    long long max = 0;
-    long long cost_from_left = 0;
-    long long cost_from_right = 0;
-    for (int i = left; i <= right; i++)
+    int res = 0, max = 0;
+    for (int i = index; i <= N - 1; i++)
     {
         if (buildings[i] > max)
             max = buildings[i];
 
-        cost_from_left += max;
+        res += max;
     }
     max = 0;
-    long long max_index = 0;
-    for (int i = right; i >= left; i--)
+    for (int i = index - 1; i >= 0; i--) // <--possible segfault
     {
-         if (buildings[i] > max)
-         {
+        if (buildings[i] > max)
             max = buildings[i];
-            max_index = i;
-         }
 
-        cost_from_right += max;
+        res += max;
     }
 
-    if (cost_from_left < cost_from_right)
-        right = max_index - 1;
-    else
-        left = max_index + 1;
-
-    return min_cost(left, right);
+    return res;
 }
 
 int main(int argc, char const *argv[])
@@ -49,32 +36,23 @@ int main(int argc, char const *argv[])
 
     cin >> N;
 
-    int inp;
+    long long inp;
     for (int i = 0; i < N; i++)
     {
         cin >> inp;
-        buildings[i] = (long long) inp;
+        buildings[i] = inp;
     }
 
-    int min_idx = min_cost(0, N - 1);
-    int res = 0, max = 0;
-    for (int i = min_idx; i <= N - 1; i++)
+    long long min_cost = INT64_MAX;
+    long long cost = 0;
+    for (int i = 0; i < N; i++)
     {
-        if (buildings[i] > max)
-            max = buildings[i];
-
-        res += max;
-    }
-    max = 0;
-    for (int i = min_idx - 1; i >= 0; i--) // <--possible segfault
-    {
-        if (buildings[i] > max)
-            max = buildings[i];
-        
-        res += max;
+        cost = calculate_cost(i);
+        if (cost < min_cost)
+            min_cost = cost;
     }
 
-    cout << res << "\n";
+    cout << min_cost << "\n";
 
     return 0;
 }
