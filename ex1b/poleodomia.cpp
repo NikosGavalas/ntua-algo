@@ -9,7 +9,7 @@ long long buildings[1000000];
 
 long long calculate_cost(int index)
 {
-    int res = 0, max = 0;
+    long long res = 0, max = 0;
     for (int i = index; i <= N - 1; i++)
     {
         if (buildings[i] > max)
@@ -18,7 +18,7 @@ long long calculate_cost(int index)
         res += max;
     }
     max = 0;
-    for (int i = index - 1; i >= 0; i--) // <--possible segfault
+    for (int i = index - 1; i >= 0; i--)
     {
         if (buildings[i] > max)
             max = buildings[i];
