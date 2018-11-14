@@ -259,10 +259,18 @@ TSWLatexianTemp*
 *.sta
 
 #
+# not-final pdfs
+#
+ex2a.pdf
+
+#
+# Executables
+#
+particles
+poleodomia
+
+#
 # Other
 #
 past
-ex1a.pdf
-particles
 .vscode
-poleodomia
