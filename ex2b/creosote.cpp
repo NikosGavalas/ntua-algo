@@ -29,11 +29,11 @@ int main(int argc, char const *argv[])
         partial_sums[i] = ongoing_sum;
     }
 
-    dp[0] = delicacies[0];
+    dp[0] = 0;
     for (int i = 1; i < N; i++)
     {
-        long long max = 0;
-        for (int j = 1; j < i; j++)
+        long long max = INT64_MIN;
+        for (int j = 1; j <= i; j++)
         {
             long long sums = partial_sums[i] - partial_sums[j - 1];
             long long curr = dp[j - 1] + a * pow(sums, 2) + b * sums + c;
