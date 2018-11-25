@@ -30,10 +30,11 @@ int main(int argc, char const *argv[])
     }
 
     dp[0] = 0;
-    for (int i = 1; i < N; i++)
+    dp[1] = delicacies[0];
+    for (int i = 2; i < N; i++)
     {
         long long max = INT64_MIN;
-        for (int j = 1; j <= i; j++)
+        for (int j = 1; j < i; j++)
         {
             long long sums = partial_sums[i] - partial_sums[j - 1];
             long long curr = dp[j - 1] + a * pow(sums, 2) + b * sums + c;
