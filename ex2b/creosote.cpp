@@ -1,3 +1,5 @@
+// DP, O(n^2) (Can be optimized to O(nlogn) with the convex-hull trick though).
+
 #include <iostream>
 #include <math.h>
 
