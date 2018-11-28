@@ -259,9 +259,9 @@ TSWLatexianTemp*
 *.sta
 
 #
-# not-final pdfs
+# non-final pdfs
 #
-ex2a.pdf
+
 
 #
 # Executables
