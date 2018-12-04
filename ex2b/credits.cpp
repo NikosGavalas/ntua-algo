@@ -3,6 +3,8 @@
 #include <iostream>
 #include <vector>
 
+//#define DEBUG
+
 using namespace std;
 
 int findCeilIndex(vector<int> &v, int key)
@@ -30,7 +32,7 @@ int findBottomIndex(vector<int> &v, int key)
     while (r - l > 1)
     {
         int m = l + (r - l) / 2;
-        if (v[m] <= key)
+        if (v[m] < key)
             r = m;
         else
             l = m;
@@ -65,23 +67,39 @@ int main(int argc, char const *argv[])
 
     int *right = new int[N];
     vector<int> right_aggr;
-    for (size_t i = N - 1; i >= 0; i--)
+    for (size_t i = N; i > 0; i--)
     {
-        if (right_aggr.empty() || creds[i] < right_aggr[right_aggr.size() - 1])
-            right_aggr.push_back(creds[i]);
+        if (right_aggr.empty() || creds[i - 1] < right_aggr[right_aggr.size() - 1])
+            right_aggr.push_back(creds[i - 1]);
         else
-            right_aggr[findBottomIndex(right_aggr, creds[i])] = creds[i];
+            right_aggr[findBottomIndex(right_aggr, creds[i - 1])] = creds[i - 1];
 
-        right[i] = right_aggr.size();
+        right[i - 1] = right_aggr.size();
     }
 
+#ifdef DEBUG
     for (size_t i = 0; i < N; i++)
         cout << left[i] << ", ";
-    cout << "\n";
+    
+    cout << "\n\n";
 
     for (size_t i = 0; i < N; i++)
         cout << right[i] << ", ";
-    cout << "\n";
+#endif
+
+    int ret = 0;
+    for (size_t i = 0; i < N - 1; i++)
+    {
+        int sum = left[i] + right[i + 1]; 
+        if (sum > ret)
+            ret = sum;
+    }
+    if (ret < left[N - 1])
+        ret = left[N - 1];
+    if (ret < left[0])
+        ret = left[0];
+
+    cout << ret << "\n";
 
     //delete [] creds;
 

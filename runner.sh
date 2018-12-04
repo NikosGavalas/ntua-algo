@@ -51,8 +51,8 @@ do
         echo "start debugging?[y/n]"
         read answer
         if [[ $answer == "y" || $answer == "Y" ]]; then
-            gdb -ex "b main" -ex "run < ${TESTCASES_DIR}/input${i}.txt" ${EXEC}
-            #gdbgui "${EXEC} < ${TESTCASES_DIR}/input${i}.txt"
+            #gdb -ex "b main" -ex "run < ${TESTCASES_DIR}/input${i}.txt" ${EXEC}
+            gdbgui "${EXEC} < ${TESTCASES_DIR}/input${i}.txt"
             exit 1
         fi
     else
