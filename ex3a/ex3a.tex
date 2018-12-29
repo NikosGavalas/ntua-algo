@@ -17,6 +17,7 @@
 \usepackage{amsfonts}
 
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,automata,positioning}
 
 \usepackage{titlesec}
 \titleformat{\section}{\large}{}{0em}{\textsc}[\titlerule]
@@ -99,6 +100,22 @@
   |E| = m \).
 
   \subsection{α}
+
+  Έστω \(T_1, T_2\) συνεκτικά δέντρα και ακμή \(e' \in T_2 \backslash T_1\).
+  To \(T_1 \cup \{e'\}\) θα περιέχει κύκλο \(C\). Σε αυτόν τον κύκλο, \(\exists
+  e \in C: e \notin T_2\), αφού διαφορετικά το \(Τ_2\) θα περιείχε τον \(C\)
+  και δεν θα ήταν συνδετικό δέντρο. Το \((T_1 \backslash \{e\}) \cup \{e'\} \)
+  είναι άκυκλος γράφος με \(|E| = |V| - 1\), άρα είναι συνδετικό δέντρο.
+  Επομένως, \(\forall e \in T_1 \backslash T_2, \exists e' \in T_2 \backslash
+  T_1: (T_1 \backslash \{e\}) \cup \{e'\}\) είναι συνδ. δέντρο.
+  \\
+  \\
+  Μια τέτοια ακμή μπορεί να βρεθεί σε γραμμικό χρόνο ως εξής: για \(e = (u, v)
+  \in T_1 \backslash T_2 \), πραγματοποιούμε στο \(T_2 \) μια {\latintext DFS}
+  αναζήτηση από το \(u \rightarrow v\) και για κάθε ακμή \(e'\) που ανήκει στο
+  προκύπτον μονοπάτι εξετάζουμε αν \(\in Τ_1\) σε \((O(1))\) και επιστρέφουμε 
+  την πρώτη που \(\notin T_1\). Η πολυπλοκότητα είναι αυτή του {\latintext DFS},
+  \(O(|V|)\).
   
   \subsection{β}
 
@@ -106,10 +123,106 @@
 
   \section{Άσκηση 5}
 
+  Έστω \(G(V, E, w)\) συνεκτικός και μη κατευθυνόμενος γράφος.
+
   \subsection{α}
-  
+
+  \begin{center}
+    \begin{tabular}{c c}
+      \underline{Γράφος} & {\latintext \underline{MST}} \\
+      \begin{tikzpicture}[
+        > = stealth, % arrow head style
+        shorten > = 1pt, % don't touch arrow head to node
+        auto,
+        node distance = 3cm, % distance between nodes
+        semithick % line style
+        ]
+    
+        \tikzset{every state}=[
+        draw = black,
+        thick,
+        fill = white,
+        minimum size = 1mm
+        ]
+    
+        \node[state] (a) {\(a\)};
+        \node[state] (b) [right=of a] {\(b\)};
+        \node[state] (c) [below=of b] {\(c\)};
+    
+        \path[] (a) edge  node[] {2} (b);
+        \path[] (b) edge  node[] {2} (c);
+        \path[] (c) edge  node[] {3} (a);
+    
+      \end{tikzpicture} &
+      \begin{tikzpicture}[
+          > = stealth, % arrow head style
+          shorten > = 1pt, % don't touch arrow head to node
+          auto,
+          node distance = 3cm, % distance between nodes
+          semithick % line style
+          ]
+      
+          \tikzset{every state}=[
+          draw = black,
+          thick,
+          fill = white,
+          minimum size = 1mm
+          ]
+      
+          \node[state] (a) {\(a\)};
+          \node[state] (b) [right=of a] {\(b\)};
+          \node[state] (c) [below=of b] {\(c\)};
+      
+          \path[] (a) edge  node[] {2} (b);
+          \path[] (b) edge  node[] {2} (c);
+      
+        \end{tikzpicture}
+    \end{tabular}
+  \end{center}
+
   \subsection{β}
+
+  Αφού για κάθε τομή, η ακμή ελάχιστου βάρους που διασχίζει την τομή είναι
+  μοναδική, τότε όλες οι ακμές θα έχουν διαφορετικά βάρη, γιατί αν υπήρχαν
+  τουλάχιστον δύο ακμές με το ίδιο βάρος θα υπήρχε τομή για την οποία από
+  τις διασχίζουσες ακμές είτε θα υπήρχε μικρότερη (οπότε δεν μας νοιάζει), ή
+  θα ήταν και οι δύο οι μικρότερες (εφόσον είναι ίσες) και άρα δεν θα υπήρχε
+  μοναδική ακμή ελάχιστου βάρους. Συνεπώς, γνωρίζοντας πως όταν σε συνδετικό μη
+  κατευθυνόμενο γράφο όλες οι ακμές έχουν διαφορετικά βάρη, τότε το
+  {\latintext MST} του γράφου είναι μοναδικό, προκύπτει το ζητούμενο.
+  \\
+  \\
+  Αντιπαράδειγμα:
+  \\
+  \begin{center}
+    \begin{tikzpicture}[
+      > = stealth, % arrow head style
+      shorten > = 1pt, % don't touch arrow head to node
+      auto,
+      node distance = 3cm, % distance between nodes
+      semithick % line style
+      ]
   
+      \tikzset{every state}=[
+      draw = black,
+      thick,
+      fill = white,
+      minimum size = 1mm
+      ]
+
+      \node[state] (a) {\(a\)};
+      \node[state] (b) [right=of a] {\(b\)};
+      \node[state] (c) [below=of b] {\(c\)};
+
+      \draw[red,thick,dashed] (3,1) .. controls (2.5,-1.5) .. (6,-1);
+  
+      \path[] (a) edge  node[] {2} (b);
+      \path[] (b) edge  node[] {2} (c);
+      \path[] (c) edge  node[] {3} (a);
+  
+    \end{tikzpicture}
+    
+  \end{center}
   \subsection{γ}
 
   \subsection{δ}
