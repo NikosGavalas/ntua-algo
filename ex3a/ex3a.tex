@@ -19,6 +19,9 @@
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,automata,positioning}
 
+\usepackage[]{algorithm}
+\usepackage[noend]{algpseudocode}
+
 \usepackage{titlesec}
 \titleformat{\section}{\large}{}{0em}{\textsc}[\titlerule]
 \titleformat{\subsection}{\large}{}{0em}{\textbf}[]
@@ -27,6 +30,10 @@
 \title{Αλγόριθμοι και Πολυπλοκότητα}
 \author{Γαβαλάς Νίκος, AM 03113121}
 \date{Δεκέμβριος 2018}
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
 
 \begin{document}
 
@@ -37,6 +44,40 @@
   \end{center}
 
   \section{Άσκηση 1}
+
+  Έστω \(T(V, E)\) δέντρο που κάθε κορυφή του \(u\) έχει βάρος \(w(u) \in 
+  \mathbb{Z}\) και ζητάμε το μονοπάτι \(p\) στο δέντρο που μεγιστοποιεί το
+  \(\sum_{u \in p}{w(u)}\).
+  \\
+  \\
+  Η ιδέα είναι η εξής: Ορίζουμε αρχικά δύο ρίζες, η μία είναι η ρίζα του δέντρου
+  αναζήτησης (επιλέγεται ως τυχαίος κόμβος κατά την εκκίνση) και η άλλη η 
+  ρίζα-απάντηση, η ρίζα του υποδέντρου που αποτελεί το \(p\).
+
+  {\latintext
+  \begin{algorithm}
+    \caption{My algorithm}\label{euclid}
+    \begin{algorithmic}[1]
+    \Procedure{MyProcedure}{}
+    \State $\textit{stringlen} \gets \text{length of }\textit{string}$
+    \State $i \gets \textit{patlen}$
+    \BState \emph{top}:
+    \If {$i > \textit{stringlen}$} \Return false
+    \EndIf
+    \State $j \gets \textit{patlen}$
+    \BState \emph{loop}:
+    \If {$\textit{string}(i) = \textit{path}(j)$}
+    \State $j \gets j-1$.
+    \State $i \gets i-1$.
+    \State \textbf{goto} \emph{loop}.
+    \State \textbf{close};
+    \EndIf
+    \State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
+    \State \textbf{goto} \emph{top}.
+    \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+  }
 
   \section{Άσκηση 2}
 
