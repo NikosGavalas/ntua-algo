@@ -53,28 +53,48 @@
   Η ιδέα είναι η εξής: Ορίζουμε αρχικά δύο ρίζες, η μία είναι η ρίζα του δέντρου
   αναζήτησης (επιλέγεται ως τυχαίος κόμβος κατά την εκκίνση) και η άλλη η 
   ρίζα-απάντηση, η ρίζα του υποδέντρου που αποτελεί το \(p\).
+  \\
+  \\
+  Καλούμε την κάτωθι συνάρτηση αναδρομικά για κάθε κόμβο. Όταν τερματίσει,
+  το μέγιστο άθροισμα είναι στη μεταβλητή \(resVal\) και το \(p\)
+  κατασκευάζεται με διάσχιση του υποδέντρου που εκκινεί από το \(resNode\)
+  ακολουθώντας τα \(maxChild\).
+  \\
+  \\
+  Ο αλγόριθμος αυτός έχει γραμμική πολυπλοκότητα \( O(|V| + |E|)\) καθώς δεν
+  είναι παρά μια παραλλαγή της αναζήτησης κατά βάθος.
 
   {\latintext
   \begin{algorithm}
-    \caption{My algorithm}\label{euclid}
+    \caption{Max Sum Path}\label{euclid}
     \begin{algorithmic}[1]
-    \Procedure{MyProcedure}{}
-    \State $\textit{stringlen} \gets \text{length of }\textit{string}$
-    \State $i \gets \textit{patlen}$
-    \BState \emph{top}:
-    \If {$i > \textit{stringlen}$} \Return false
-    \EndIf
-    \State $j \gets \textit{patlen}$
-    \BState \emph{loop}:
-    \If {$\textit{string}(i) = \textit{path}(j)$}
-    \State $j \gets j-1$.
-    \State $i \gets i-1$.
-    \State \textbf{goto} \emph{loop}.
-    \State \textbf{close};
-    \EndIf
-    \State $i \gets i+\max(\textit{delta}_1(\textit{string}(i)),\textit{delta}_2(j))$.
-    \State \textbf{goto} \emph{top}.
-    \EndProcedure
+      
+    \State $resNode \gets NULL$
+    \State $resVal \gets \textit{\(-\infty\)}$
+    \State $initNode \gets \text{chooseRandom()}$
+    
+    \Function{maxSum}{node, parent}
+      \If {$node == \textit{NULL}$}
+        \Return 0
+      \EndIf
+      \ForAll{child in node.adjList()}
+        \State $listOfSums.append(maxSum(child, node))$
+      \EndFor
+      \State $maxRight = max(listOfSums.max() + node.weight, node.weight)$
+      \Comment {max if path continues to right}
+      \State $maxChild = ...$
+      \Comment {set maxChild to the node which has the maxRight value}
+      \State $maxTop = max(maxRight, listOfSums.sum() + node.weight)$ 
+      \Comment {max if path continues to top}
+      \If {maxTop > resVal}
+        \State $resVal \gets maxTop$
+        \State $resNode \gets node$
+      \EndIf
+      \State \textbf{return} $maxRight, maxChild$
+      \EndFunction
+
+    \State $\text{maxSum(\textit{initNode}, \textit{NULL})}$
+
     \end{algorithmic}
   \end{algorithm}
   }
@@ -133,8 +153,6 @@
   Η χρονική πολυπλοκότητα του αλγορίθμου είναι γραμμική, αφού κάθε βήμα απαιτεί
   χρόνο \( Ο(|V| + |E|) \).
 
-  \section{Άσκηση 3}
-  
   \section{Άσκηση 4}
 
   Έστω συνεκτικός, μη κατευθυνόμενος γράφος \( G(V, E) \) με \( |V| = n,
@@ -158,10 +176,6 @@
   την πρώτη που \(\notin T_1\). Η πολυπλοκότητα είναι αυτή του {\latintext DFS},
   \(O(|V|)\).
   
-  \subsection{β}
-
-  \subsection{γ}
-
   \section{Άσκηση 5}
 
   Έστω \(G(V, E, w)\) συνεκτικός και μη κατευθυνόμενος γράφος.
@@ -264,8 +278,5 @@
     \end{tikzpicture}
     
   \end{center}
-  \subsection{γ}
-
-  \subsection{δ}
 
 \end{document}
