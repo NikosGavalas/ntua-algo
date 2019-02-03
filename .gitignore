@@ -259,11 +259,6 @@ TSWLatexianTemp*
 *.sta
 
 #
-# non-final pdfs
-#
-ex4a.pdf
-
-#
 # Executables
 #
 particles
@@ -272,6 +267,8 @@ creosote
 credits
 robbery
 submarine
+football
+driveme
 
 #
 # Other
