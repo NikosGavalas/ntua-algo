@@ -1,3 +1,5 @@
+// Basic idea: create a hyper-graph, and run at most N times dijkstra.
+
 #include <assert.h>
 
 #include <algorithm>
@@ -79,7 +81,6 @@ int main(int argc, char const *argv[]) {
     //TODO: replace postfix with prefix ++
     for (int i = 0; i < M; i++) {
         cin >> source >> dest >> dist;
-        cout << source << " " << dest << " " << dist << "\n"; //
         // adjustments for zero indexing
         source--;
         dest--;
@@ -92,26 +93,23 @@ int main(int argc, char const *argv[]) {
                 graph.add_edge(dest + step, source + step + N, dist);
         }
     }
-    cout << "\n"; //
 
-    // source = 5;
-    // vector<int> results = vector<int>(N * (K + 1), INT_MAX);
-    // graph.find_shortest_distances(source - 1, results);
-    // for (auto &dist : results)
-    //     cout << dist << "\n";
-
-    int num_offenses;
+    int max_num_offenses;
     map<int, vector<int>> cache;
     for (int i = 0; i < Q; i++) {
-        cin >> source >> dest >> num_offenses;
-        cout << source << " " << dest << " " << num_offenses << " | "; // DEBUG
+        cin >> source >> dest >> max_num_offenses;
         source--;
         dest--;
         if (cache.count(source) == 0) {
             cache[source] = vector<int>(N * (K + 1), INT_MAX);
             graph.find_shortest_distances(source, cache[source]);
         }
-        int res = cache[source][dest + (num_offenses * N)];
+        // find min for all k < max_num_offenses
+        int res = INT_MAX;
+        for (int k = 0; k <= max_num_offenses; ++k) {
+            if (cache[source][dest + (k * N)] < res)
+                res = cache[source][dest + (k * N)];
+        }
         if (res == INT_MAX)
             cout << "IMPOSSIBLE" << "\n";
         else
