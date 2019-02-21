@@ -78,13 +78,12 @@ int main(int argc, char const *argv[]) {
     Graph graph(N * (K + 1));
 
     int source, dest, dist;
-    //TODO: replace postfix with prefix ++
-    for (int i = 0; i < M; i++) {
+    for (int i = 0; i < M; ++i) {
         cin >> source >> dest >> dist;
         // adjustments for zero indexing
         source--;
         dest--;
-        for (int k = 0; k <= K; k++) {
+        for (int k = 0; k <= K; ++k) {
             int step = k * N;
             // add all forward edges
             graph.add_edge(source + step, dest + step, dist);
@@ -96,7 +95,7 @@ int main(int argc, char const *argv[]) {
 
     int max_num_offenses;
     map<int, vector<int>> cache;
-    for (int i = 0; i < Q; i++) {
+    for (int i = 0; i < Q; ++i) {
         cin >> source >> dest >> max_num_offenses;
         source--;
         dest--;
