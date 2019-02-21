@@ -96,14 +96,3 @@ return flow
 
 `O(|E| * f)`, `f` being the max flow
 
-## Dynamic Programming
-
-[
-Maximum profit by buying and selling a share at most k times
-](https://www.geeksforgeeks.org/maximum-profit-by-buying-and-selling-a-share-at-most-k-times/)
-
-## NP-Completeness
-
-### Longest Path
-
-Reduction from the Hamiltonian Path Problem
